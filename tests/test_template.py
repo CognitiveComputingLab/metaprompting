@@ -2,7 +2,7 @@
 
 from unittest import TestCase
 
-from pythontemplatepackage.myclass import MyClass
+from metaprompting.myclass import MyClass
 
 
 class TestTemplate(TestCase):

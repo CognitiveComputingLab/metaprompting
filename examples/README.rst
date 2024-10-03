@@ -1,3 +1,3 @@
-PythonTemplatePackage Gallery
+Meta-Prompting Gallery
 =============================
 
