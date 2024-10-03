@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example &mdash; metaprompting  documentation</title>
+  <title>Default Action and State nodes &mdash; metaprompting  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -52,10 +52,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Meta-Prompting Gallery</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Example</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#some-python-code">Some Python Code</a></li>
-</ul>
-</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Default Action and State nodes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api_summary.html">API Summary</a></li>
@@ -76,7 +73,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Meta-Prompting Gallery</a></li>
-      <li class="breadcrumb-item active">Example</li>
+      <li class="breadcrumb-item active">Default Action and State nodes</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -90,19 +87,76 @@
 <p><a class="reference internal" href="#sphx-glr-download-auto-examples-plot-example-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code.</p>
 </div>
-<section class="sphx-glr-example-title" id="example">
-<span id="sphx-glr-auto-examples-plot-example-py"></span><h1>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h1>
-<p>An example Python file.</p>
-<section id="some-python-code">
-<h2>Some Python Code<a class="headerlink" href="#some-python-code" title="Link to this heading"></a></h2>
-<p>Example code will be executed and shown in the documentation:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World&quot;</span><span class="p">)</span>
+<section class="sphx-glr-example-title" id="default-action-and-state-nodes">
+<span id="sphx-glr-auto-examples-plot-example-py"></span><h1>Default Action and State nodes<a class="headerlink" href="#default-action-and-state-nodes" title="Link to this heading"></a></h1>
+<p>A simple example using the <a class="reference internal" href="../_autosummary/metaprompting.base.DefaultAction.html#metaprompting.base.DefaultAction" title="metaprompting.base.DefaultAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultAction</span></code></a> and <a class="reference internal" href="../_autosummary/metaprompting.base.DefaultState.html#metaprompting.base.DefaultState" title="metaprompting.base.DefaultState"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultState</span></code></a>
+classes.</p>
+<p>Define derived classes to make the call dynamics visible</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">metaprompting.base</span> <span class="kn">import</span> <span class="n">DefaultAction</span><span class="p">,</span> <span class="n">DefaultState</span>
+
+
+<span class="k">class</span> <span class="nc">VerboseAction</span><span class="p">(</span><span class="n">DefaultAction</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">input_trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> was triggered by </span><span class="si">{</span><span class="nb">input</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">input_trigger</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;executing </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">VerboseState</span><span class="p">(</span><span class="n">DefaultState</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;updating </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Hello World
+<p>Create state nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root_1</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
+<span class="n">root_2</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
+<span class="n">root_3</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
+<span class="n">leaf_1</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
+<span class="n">leaf_2</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.002 seconds)</p>
+<p>Create action nodes, which auto-connects states</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">action1</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">(</span><span class="n">input_states</span><span class="o">=</span><span class="p">[</span><span class="n">root_1</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_3</span><span class="p">],</span> <span class="n">output_state</span><span class="o">=</span><span class="n">leaf_1</span><span class="p">)</span>
+<span class="n">action2</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">(</span><span class="n">input_states</span><span class="o">=</span><span class="p">[</span><span class="n">root_3</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_1</span><span class="p">],</span> <span class="n">output_state</span><span class="o">=</span><span class="n">leaf_2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Update root state nodes, which triggers a cascade to leaf nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root_1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;smoke&quot;</span><span class="p">)</span>
+<span class="n">root_2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">)</span>
+<span class="n">root_3</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;mirrors&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>updating &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
+updating &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
+updating &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
+executing &lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt;
+updating &lt;__main__.VerboseState object at 0x7fd34e314580&gt;
+&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
+executing &lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt;
+updating &lt;__main__.VerboseState object at 0x7fd34e314520&gt;
+</pre></div>
+</div>
+<p>Print output of leaf nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">leaf_1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">leaf_2</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>smoke and mirrors
+mirrors and smoke
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.003 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-example-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/28bf5b885c707f7863eaed624722ca82/plot_example.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_example.ipynb</span></code></a></p>
@@ -115,7 +169,6 @@ to download the full example code.</p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
 </section>
 
 

@@ -14,7 +14,7 @@ Meta-Prompting Gallery
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="An example Python file.">
+    <div class="sphx-glr-thumbcontainer" tooltip="A simple example using the DefaultAction and DefaultState classes.">
 
 .. only:: html
 
@@ -25,7 +25,7 @@ Meta-Prompting Gallery
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">Example</div>
+      <div class="sphx-glr-thumbnail-title">Default Action and State nodes</div>
     </div>
 
 

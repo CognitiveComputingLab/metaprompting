@@ -1,9 +1,9 @@
-metaprompting.myclass.MyClass
-=============================
+metaprompting.base.DefaultAction
+================================
 
-.. currentmodule:: metaprompting.myclass
+.. currentmodule:: metaprompting.base
 
-.. autoclass:: MyClass
+.. autoclass:: DefaultAction
    :members:
    :undoc-members:
    :special-members:

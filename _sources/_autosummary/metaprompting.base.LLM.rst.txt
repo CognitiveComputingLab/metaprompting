@@ -1,0 +1,14 @@
+metaprompting.base.LLM
+======================
+
+.. currentmodule:: metaprompting.base
+
+.. autoclass:: LLM
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

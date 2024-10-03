@@ -1,0 +1,14 @@
+metaprompting.base.State
+========================
+
+.. currentmodule:: metaprompting.base
+
+.. autoclass:: State
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

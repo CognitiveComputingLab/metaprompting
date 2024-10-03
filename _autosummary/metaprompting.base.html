@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>metaprompting.myclass &mdash; metaprompting  documentation</title>
+  <title>metaprompting.base &mdash; metaprompting  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -26,7 +26,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="metaprompting.myclass.MyClass" href="metaprompting.myclass.MyClass.html" />
+    <link rel="next" title="metaprompting.base.Action" href="metaprompting.base.Action.html" />
     <link rel="prev" title="metaprompting" href="metaprompting.html" /> 
 </head>
 
@@ -54,8 +54,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Meta-Prompting Gallery</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../api_summary.html">API Summary</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="metaprompting.html">metaprompting</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">metaprompting.myclass</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="metaprompting.myclass.MyClass.html">metaprompting.myclass.MyClass</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">metaprompting.base</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="metaprompting.base.Action.html">metaprompting.base.Action</a></li>
+<li class="toctree-l4"><a class="reference internal" href="metaprompting.base.DefaultAction.html">metaprompting.base.DefaultAction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="metaprompting.base.DefaultState.html">metaprompting.base.DefaultState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="metaprompting.base.LLM.html">metaprompting.base.LLM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="metaprompting.base.State.html">metaprompting.base.State</a></li>
 </ul>
 </li>
 </ul>
@@ -80,7 +84,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api_summary.html">API Summary</a></li>
           <li class="breadcrumb-item"><a href="metaprompting.html">metaprompting</a></li>
-      <li class="breadcrumb-item active">metaprompting.myclass</li>
+      <li class="breadcrumb-item active">metaprompting.base</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -89,13 +93,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-metaprompting.myclass">
-<span id="metaprompting-myclass"></span><h1>metaprompting.myclass<a class="headerlink" href="#module-metaprompting.myclass" title="Link to this heading"></a></h1>
+  <section id="module-metaprompting.base">
+<span id="metaprompting-base"></span><h1>metaprompting.base<a class="headerlink" href="#module-metaprompting.base" title="Link to this heading"></a></h1>
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="metaprompting.myclass.MyClass.html#metaprompting.myclass.MyClass" title="metaprompting.myclass.MyClass"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MyClass</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="metaprompting.base.Action.html#metaprompting.base.Action" title="metaprompting.base.Action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Action</span></code></a>([input_states, output_state])</p></td>
+<td><p>An executable node that takes zero or more input_states, executes an action, and returns its output to the output_state.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="metaprompting.base.DefaultAction.html#metaprompting.base.DefaultAction" title="metaprompting.base.DefaultAction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DefaultAction</span></code></a>([input_states, output_state, ...])</p></td>
+<td><p>An executable node that takes zero or more input_states, executes an action, and returns its output to the output_state.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="metaprompting.base.DefaultState.html#metaprompting.base.DefaultState" title="metaprompting.base.DefaultState"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DefaultState</span></code></a>([input_action, output_actions])</p></td>
+<td><p>A static node holding information generated by an input_action.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="metaprompting.base.LLM.html#metaprompting.base.LLM" title="metaprompting.base.LLM"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LLM</span></code></a>()</p></td>
 <td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="metaprompting.base.State.html#metaprompting.base.State" title="metaprompting.base.State"><code class="xref py py-obj docutils literal notranslate"><span class="pre">State</span></code></a>([input_action, output_actions])</p></td>
+<td><p>A static node holding information generated by an input_action.</p></td>
 </tr>
 </tbody>
 </table>
@@ -106,7 +122,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="metaprompting.html" class="btn btn-neutral float-left" title="metaprompting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="metaprompting.myclass.MyClass.html" class="btn btn-neutral float-right" title="metaprompting.myclass.MyClass" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="metaprompting.base.Action.html" class="btn btn-neutral float-right" title="metaprompting.base.Action" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

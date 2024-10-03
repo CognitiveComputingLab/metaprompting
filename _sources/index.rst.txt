@@ -10,23 +10,6 @@ Welcome to Meta-Prompting's documentation!
    auto_examples/index.rst
    api_summary
 
-.. ...add more elements to table of contents
-
-You can include code as part of the documentation
-
-   >>> print("Hello World")
-   Hello World
-
-which can be tested by running ``make doctest``. This is also run by the GitHub action to build the documentation.
-
-You can also include executable example files with code and text, which are shown in the :doc:`auto_examples/index`.
-The ``test_examples.py`` unittest automatically runs these examples to check for errors.
-
-.. autoclass:: metaprompting.myclass.MyClass
-   :members:
-   :noindex:
-
-
 .. Indices and tables
 .. ==================
 

@@ -1,0 +1,14 @@
+metaprompting.base.Action
+=========================
+
+.. currentmodule:: metaprompting.base
+
+.. autoclass:: Action
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

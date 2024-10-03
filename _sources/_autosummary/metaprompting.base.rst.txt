@@ -1,7 +1,7 @@
-metaprompting.myclass
-=====================
+metaprompting.base
+==================
 
-.. automodule:: metaprompting.myclass
+.. automodule:: metaprompting.base
 
    
    
@@ -19,7 +19,11 @@ metaprompting.myclass
       :toctree:
       :template: custom-class-template.rst
    
-      MyClass
+      Action
+      DefaultAction
+      DefaultState
+      LLM
+      State
    
    
 

@@ -18,24 +18,100 @@
 .. _sphx_glr_auto_examples_plot_example.py:
 
 
-Example
-===========================
+Default Action and State nodes
+==============================
 
-An example Python file.
+A simple example using the :class:`~metaprompting.base.DefaultAction` and :class:`~metaprompting.base.DefaultState`
+classes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-13
+.. GENERATED FROM PYTHON SOURCE LINES 9-10
 
-Some Python Code
-------------------------
+Define derived classes to make the call dynamics visible
 
-Example code will be executed and shown in the documentation:
-
-.. GENERATED FROM PYTHON SOURCE LINES 13-15
+.. GENERATED FROM PYTHON SOURCE LINES 10-32
 
 .. code-block:: Python
 
 
-    print("Hello World")
+    from metaprompting.base import DefaultAction, DefaultState
+
+
+    class VerboseAction(DefaultAction):
+
+        def input_trigger(self, input):
+            print(f"{self} was triggered by {input}")
+            super().input_trigger(input)
+
+        def execute(self, *args, **kwargs):
+            print(f"executing {self}")
+            super().execute(*args, **kwargs)
+
+
+    class VerboseState(DefaultState):
+
+        def update(self, text):
+            print(f"updating {self}")
+            super().update(text)
+
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 33-34
+
+Create state nodes
+
+.. GENERATED FROM PYTHON SOURCE LINES 34-40
+
+.. code-block:: Python
+
+    root_1 = VerboseState()
+    root_2 = VerboseState()
+    root_3 = VerboseState()
+    leaf_1 = VerboseState()
+    leaf_2 = VerboseState()
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 41-42
+
+Create action nodes, which auto-connects states
+
+.. GENERATED FROM PYTHON SOURCE LINES 42-45
+
+.. code-block:: Python
+
+    action1 = VerboseAction(input_states=[root_1, root_2, root_3], output_state=leaf_1)
+    action2 = VerboseAction(input_states=[root_3, root_2, root_1], output_state=leaf_2)
+
+
+
+
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 46-47
+
+Update root state nodes, which triggers a cascade to leaf nodes
+
+.. GENERATED FROM PYTHON SOURCE LINES 47-51
+
+.. code-block:: Python
+
+    root_1.update("smoke")
+    root_2.update(" and ")
+    root_3.update("mirrors")
+
 
 
 
@@ -44,7 +120,43 @@ Example code will be executed and shown in the documentation:
 
  .. code-block:: none
 
-    Hello World
+    updating <__main__.VerboseState object at 0x7fd34e314760>
+    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e314760>
+    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e314760>
+    updating <__main__.VerboseState object at 0x7fd34e3163e0>
+    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e3163e0>
+    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e3163e0>
+    updating <__main__.VerboseState object at 0x7fd34e3162c0>
+    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e3162c0>
+    executing <__main__.VerboseAction object at 0x7fd34e3146d0>
+    updating <__main__.VerboseState object at 0x7fd34e314580>
+    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e3162c0>
+    executing <__main__.VerboseAction object at 0x7fd34e3166b0>
+    updating <__main__.VerboseState object at 0x7fd34e314520>
+
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 52-53
+
+Print output of leaf nodes
+
+.. GENERATED FROM PYTHON SOURCE LINES 53-55
+
+.. code-block:: Python
+
+    print(leaf_1.value)
+    print(leaf_2.value)
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    smoke and mirrors
+    mirrors and smoke
 
 
 
@@ -52,7 +164,7 @@ Example code will be executed and shown in the documentation:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.002 seconds)
+   **Total running time of the script:** (0 minutes 0.003 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_example.py:
