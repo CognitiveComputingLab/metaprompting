@@ -1,7 +1,7 @@
-﻿pythontemplatepackage
-=====================
+﻿metaprompting
+=============
 
-.. automodule:: pythontemplatepackage
+.. automodule:: metaprompting
 
    
    
@@ -29,5 +29,4 @@
    :recursive:
 
    myclass
-   rename
 

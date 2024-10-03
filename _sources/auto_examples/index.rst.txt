@@ -1,6 +1,6 @@
 :orphan:
 
-PythonTemplatePackage Gallery
+Meta-Prompting Gallery
 =============================
 
 

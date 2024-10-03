@@ -1,7 +1,7 @@
-pythontemplatepackage.myclass.MyClass
-=====================================
+metaprompting.myclass.MyClass
+=============================
 
-.. currentmodule:: pythontemplatepackage.myclass
+.. currentmodule:: metaprompting.myclass
 
 .. autoclass:: MyClass
    :members:

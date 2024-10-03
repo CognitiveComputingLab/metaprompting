@@ -1,7 +1,7 @@
-pythontemplatepackage.myclass
-=============================
+metaprompting.myclass
+=====================
 
-.. automodule:: pythontemplatepackage.myclass
+.. automodule:: metaprompting.myclass
 
    
    
