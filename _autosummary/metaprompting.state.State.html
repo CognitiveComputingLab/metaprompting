@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>metaprompting.state.State &mdash; metaprompting  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/autoclasstoc.css?v=08871587" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="metaprompting.util" href="metaprompting.util.html" />
+    <link rel="prev" title="metaprompting.state" href="metaprompting.state.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            metaprompting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../auto_examples/index.html">Meta-Prompting Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_summary.html">API Summary</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="metaprompting.html">metaprompting</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="metaprompting.action.html">metaprompting.action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metaprompting.graph.html">metaprompting.graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="metaprompting.llm.html">metaprompting.llm</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="metaprompting.state.html">metaprompting.state</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">metaprompting.state.State</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="metaprompting.util.html">metaprompting.util</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">metaprompting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../api_summary.html">API Summary</a></li>
+          <li class="breadcrumb-item"><a href="metaprompting.html">metaprompting</a></li>
+          <li class="breadcrumb-item"><a href="metaprompting.state.html">metaprompting.state</a></li>
+      <li class="breadcrumb-item active">metaprompting.state.State</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="metaprompting-state-state">
+<h1>metaprompting.state.State<a class="headerlink" href="#metaprompting-state-state" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="metaprompting.state.State">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metaprompting.state.</span></span><span class="sig-name descname"><span class="pre">State</span></span><a class="reference internal" href="../_modules/metaprompting/state.html#State"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>A static node holding information generated by an input_action. It may pass on the information to zero or
+more output_actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_action</strong> – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></p></li>
+<li><p><strong>output_actions</strong> – Iterable over output <code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code>s</p></li>
+</ul>
+</dd>
+</dl>
+<div class="autoclasstoc docutils container">
+<p class="rubric">Public Methods:</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#metaprompting.state.State.__init__" title="metaprompting.state.State.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>()</p></td>
+<td><p>A static node holding information generated by an input_action.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#metaprompting.state.State.set_input_action" title="metaprompting.state.State.set_input_action"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_input_action</span></code></a>(action[, force])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#metaprompting.state.State.add_output_actions" title="metaprompting.state.State.add_output_actions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_output_actions</span></code></a>(actions)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#metaprompting.state.State.trigger_outputs" title="metaprompting.state.State.trigger_outputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">trigger_outputs</span></code></a>()</p></td>
+<td><p>Trigger all outputs of this <a class="reference internal" href="#metaprompting.state.State" title="metaprompting.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#metaprompting.state.State.update" title="metaprompting.state.State.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a>(value, *args, **kwargs)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="autoclasstoc docutils container">
+<p class="rubric">Private Data Attributes:</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#metaprompting.state.State._abc_impl" title="metaprompting.state.State._abc_impl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<details><summary>Inherited from <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></summary><table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_abc_impl</span></code></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</details></div>
+<hr class="docutils" />
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__abstractmethods__">
+<span class="sig-name descname"><span class="pre">__abstractmethods__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">frozenset({})</span></em><a class="headerlink" href="#metaprompting.state.State.__abstractmethods__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__annotations__">
+<span class="sig-name descname"><span class="pre">__annotations__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#metaprompting.state.State.__annotations__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__dict__">
+<span class="sig-name descname"><span class="pre">__dict__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">mappingproxy({'__module__':</span> <span class="pre">'metaprompting.state',</span> <span class="pre">'__init__':</span> <span class="pre">&lt;function</span> <span class="pre">State.__init__&gt;,</span> <span class="pre">'set_input_action':</span> <span class="pre">&lt;function</span> <span class="pre">State.set_input_action&gt;,</span> <span class="pre">'add_output_actions':</span> <span class="pre">&lt;function</span> <span class="pre">State.add_output_actions&gt;,</span> <span class="pre">'trigger_outputs':</span> <span class="pre">&lt;function</span> <span class="pre">State.trigger_outputs&gt;,</span> <span class="pre">'update':</span> <span class="pre">&lt;function</span> <span class="pre">State.update&gt;,</span> <span class="pre">'__dict__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__dict__'</span> <span class="pre">of</span> <span class="pre">'State'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__weakref__':</span> <span class="pre">&lt;attribute</span> <span class="pre">'__weakref__'</span> <span class="pre">of</span> <span class="pre">'State'</span> <span class="pre">objects&gt;,</span> <span class="pre">'__doc__':</span> <span class="pre">None,</span> <span class="pre">'__abstractmethods__':</span> <span class="pre">frozenset(),</span> <span class="pre">'_abc_impl':</span> <span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;,</span> <span class="pre">'__annotations__':</span> <span class="pre">{}})</span></em><a class="headerlink" href="#metaprompting.state.State.__dict__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metaprompting.state.State.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/metaprompting/state.html#State.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State.__init__" title="Link to this definition"></a></dt>
+<dd><p>A static node holding information generated by an input_action. It may pass on the information to zero or
+more output_actions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_action</strong> – Input <code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code></p></li>
+<li><p><strong>output_actions</strong> – Iterable over output <code class="xref py py-class docutils literal notranslate"><span class="pre">Action</span></code>s</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__module__">
+<span class="sig-name descname"><span class="pre">__module__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'metaprompting.state'</span></em><a class="headerlink" href="#metaprompting.state.State.__module__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__slots__">
+<span class="sig-name descname"><span class="pre">__slots__</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="headerlink" href="#metaprompting.state.State.__slots__" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State.__weakref__">
+<span class="sig-name descname"><span class="pre">__weakref__</span></span><a class="headerlink" href="#metaprompting.state.State.__weakref__" title="Link to this definition"></a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="metaprompting.state.State._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#metaprompting.state.State._abc_impl" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metaprompting.state.State.add_output_actions">
+<span class="sig-name descname"><span class="pre">add_output_actions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/metaprompting/state.html#State.add_output_actions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State.add_output_actions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metaprompting.state.State.set_input_action">
+<span class="sig-name descname"><span class="pre">set_input_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/metaprompting/state.html#State.set_input_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State.set_input_action" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metaprompting.state.State.trigger_outputs">
+<span class="sig-name descname"><span class="pre">trigger_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/metaprompting/state.html#State.trigger_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State.trigger_outputs" title="Link to this definition"></a></dt>
+<dd><p>Trigger all outputs of this <a class="reference internal" href="#metaprompting.state.State" title="metaprompting.state.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a>. Should typically be called at the end of <a class="reference internal" href="#metaprompting.state.State.update" title="metaprompting.state.State.update"><code class="xref py py-meth docutils literal notranslate"><span class="pre">update()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metaprompting.state.State.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/metaprompting/state.html#State.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#metaprompting.state.State.update" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="metaprompting.state.html" class="btn btn-neutral float-left" title="metaprompting.state" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metaprompting.util.html" class="btn btn-neutral float-right" title="metaprompting.util" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 Robert Lieck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

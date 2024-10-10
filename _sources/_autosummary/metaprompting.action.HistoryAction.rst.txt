@@ -1,0 +1,14 @@
+metaprompting.action.HistoryAction
+==================================
+
+.. currentmodule:: metaprompting.action
+
+.. autoclass:: HistoryAction
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

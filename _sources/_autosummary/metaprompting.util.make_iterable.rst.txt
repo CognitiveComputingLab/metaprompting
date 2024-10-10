@@ -1,0 +1,6 @@
+metaprompting.util.make\_iterable
+=================================
+
+.. currentmodule:: metaprompting.util
+
+.. autofunction:: make_iterable

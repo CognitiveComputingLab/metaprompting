@@ -1,0 +1,6 @@
+metaprompting.util.read\_multiline\_input
+=========================================
+
+.. currentmodule:: metaprompting.util
+
+.. autofunction:: read_multiline_input

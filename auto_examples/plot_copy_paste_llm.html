@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Copy Paste LLM &mdash; metaprompting  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/autoclasstoc.css?v=08871587" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API Summary" href="../api_summary.html" />
+    <link rel="prev" title="Default Action and State nodes" href="plot_example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            metaprompting
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Meta-Prompting Gallery</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="plot_example.html">Default Action and State nodes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Copy Paste LLM</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api_summary.html">API Summary</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">metaprompting</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Meta-Prompting Gallery</a></li>
+      <li class="breadcrumb-item active">Copy Paste LLM</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-examples-plot-copy-paste-llm-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="copy-paste-llm">
+<span id="sphx-glr-auto-examples-plot-copy-paste-llm-py"></span><h1>Copy Paste LLM<a class="headerlink" href="#copy-paste-llm" title="Link to this heading"></a></h1>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">CopyPasteLLM</span></code> class allows you to simulate an LLM API by copy-pasting over prompts
+and responses from/to the standard output/input.</p>
+<p>The script must be called with ‘–interactive’ command line switch to use the
+<code class="xref py py-class docutils literal notranslate"><span class="pre">CopyPasteLLM</span></code> class, otherwise, we define a <code class="xref py py-class docutils literal notranslate"><span class="pre">DummyLLM</span></code> class to simulate
+interaction for generating the documentation.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">metaprompting</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">LlmAction</span><span class="p">,</span> <span class="n">HistoryAction</span><span class="p">,</span> <span class="n">Conversation</span><span class="p">,</span> <span class="n">LLM</span><span class="p">,</span> <span class="n">CopyPasteLLM</span>
+
+
+<span class="k">if</span> <span class="s2">&quot;--interactive&quot;</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">:</span>
+    <span class="n">interactive</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">CopyPasteLLM</span><span class="p">(</span>
+        <span class="n">auto_copy_paste</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># automatically: copy LLM prompt to clipboard; paste response back when clipboard changes</span>
+        <span class="n">instructions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># don&#39;t print additional instructions</span>
+    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">class</span> <span class="nc">DummyLLM</span><span class="p">(</span><span class="n">LLM</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;HERE BE THE RESPONSE TO THE FOLLOWING PROMPT</span><span class="se">\n\n</span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">interactive</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">llm</span> <span class="o">=</span> <span class="n">DummyLLM</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Create conversation graph with state nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">Conversation</span><span class="p">()</span>
+<span class="n">input_state</span><span class="p">,</span> <span class="n">history_state</span><span class="p">,</span> <span class="n">inner_speech_state</span><span class="p">,</span> <span class="n">output_state</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">add_states</span><span class="p">([</span><span class="n">State</span><span class="p">(),</span> <span class="n">State</span><span class="p">(),</span> <span class="n">State</span><span class="p">(),</span> <span class="n">State</span><span class="p">()])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">input_state</span> <span class="o">=</span> <span class="n">input_state</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">output_state</span> <span class="o">=</span> <span class="n">output_state</span>
+</pre></div>
+</div>
+<p>Create and connect action nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># remember history</span>
+<span class="n">history_action</span> <span class="o">=</span> <span class="n">HistoryAction</span><span class="p">()</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">connect_action</span><span class="p">([</span><span class="n">input_state</span><span class="p">,</span> <span class="n">output_state</span><span class="p">],</span> <span class="n">history_action</span><span class="p">,</span> <span class="n">history_state</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># generate inner speech</span>
+<span class="n">inner_speech_action</span> <span class="o">=</span> <span class="n">LlmAction</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt_parts</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;Here is the history of a conversation between Person 1 and Person 2:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;What are some general thoughts about this conversation?</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;Keep the output short and to a single paragraph of text-only without formatting, bullet points etc&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">connect_action</span><span class="p">(</span><span class="n">history_state</span><span class="p">,</span> <span class="n">inner_speech_action</span><span class="p">,</span> <span class="n">inner_speech_state</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># construct prompt for response</span>
+<span class="n">response_action</span> <span class="o">=</span> <span class="n">LlmAction</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">,</span> <span class="n">prompt_parts</span><span class="o">=</span><span class="p">[</span>
+    <span class="s2">&quot;Here is the history of a conversation between Person 1 and Person 2:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Some general thoughts about this conversation are:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">The most recent message from Person 1 is:</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">What could Person 2 reply? Only print the reply itself, nothing else!&quot;</span><span class="p">,</span>
+<span class="p">])</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">connect_action</span><span class="p">([</span><span class="n">history_state</span><span class="p">,</span> <span class="n">inner_speech_state</span><span class="p">,</span> <span class="n">input_state</span><span class="p">],</span> <span class="n">response_action</span><span class="p">,</span> <span class="n">output_state</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;metaprompting.action.LlmAction object at 0x7fa5d492ccd0&gt;
+</pre></div>
+</div>
+<p>Initialise nodes</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">inner_speech_state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;This is the beginning of the conversation...&quot;</span><span class="p">)</span>
+<span class="n">inner_speech_action</span><span class="o">.</span><span class="n">block</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># block trigger from updating history</span>
+<span class="n">history_state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;BEGINNING OF HISTORY</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run conversation interleaved with inner speech</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
+    <span class="c1"># for running in terminal with &#39;--interactive&#39; switch</span>
+    <span class="k">def</span> <span class="nf">print_inner_speech</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Inner speech: </span><span class="si">{</span><span class="n">inner_speech_state</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Start a conversation (use Ctrl-C to cancel)!&quot;</span><span class="p">)</span>
+    <span class="n">graph</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">post_response_callback</span><span class="o">=</span><span class="n">print_inner_speech</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># for generating example in documentation</span>
+    <span class="n">input_state</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;Some user input...&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;User Input&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">input_state</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LLM Response&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">output_state</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inner Speech&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">inner_speech_state</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;History&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">history_state</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;========================&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>========================
+User Input
+========================
+Some user input...
+========================
+LLM Response
+========================
+HERE BE THE RESPONSE TO THE FOLLOWING PROMPT
+
+Here is the history of a conversation between Person 1 and Person 2:
+
+BEGINNING OF HISTORY
+
+
+
+Some general thoughts about this conversation are:
+
+This is the beginning of the conversation...
+
+The most recent message from Person 1 is:
+
+Some user input...
+
+What could Person 2 reply? Only print the reply itself, nothing else!
+========================
+Inner Speech
+========================
+HERE BE THE RESPONSE TO THE FOLLOWING PROMPT
+
+Here is the history of a conversation between Person 1 and Person 2:
+
+Person 1: Some user input...
+
+Person 2: HERE BE THE RESPONSE TO THE FOLLOWING PROMPT
+
+Here is the history of a conversation between Person 1 and Person 2:
+
+BEGINNING OF HISTORY
+
+
+
+Some general thoughts about this conversation are:
+
+This is the beginning of the conversation...
+
+The most recent message from Person 1 is:
+
+Some user input...
+
+What could Person 2 reply? Only print the reply itself, nothing else!
+
+What are some general thoughts about this conversation?
+
+Keep the output short and to a single paragraph of text-only without formatting, bullet points etc
+========================
+History
+========================
+Person 1: Some user input...
+
+Person 2: HERE BE THE RESPONSE TO THE FOLLOWING PROMPT
+
+Here is the history of a conversation between Person 1 and Person 2:
+
+BEGINNING OF HISTORY
+
+
+
+Some general thoughts about this conversation are:
+
+This is the beginning of the conversation...
+
+The most recent message from Person 1 is:
+
+Some user input...
+
+What could Person 2 reply? Only print the reply itself, nothing else!
+
+
+========================
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.003 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-copy-paste-llm-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/4ff91ec47eb461d608c5d63a7a44a33d/plot_copy_paste_llm.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_copy_paste_llm.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/f73b7e04a8645123b3c4a2d578a06288/plot_copy_paste_llm.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_copy_paste_llm.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/0bc437e590c700a85997a0dae02f28c2/plot_copy_paste_llm.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">plot_copy_paste_llm.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="plot_example.html" class="btn btn-neutral float-left" title="Default Action and State nodes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api_summary.html" class="btn btn-neutral float-right" title="API Summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024 Robert Lieck.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

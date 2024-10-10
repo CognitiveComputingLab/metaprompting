@@ -1,0 +1,33 @@
+metaprompting.action
+====================
+
+.. automodule:: metaprompting.action
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+   
+      Action
+      HistoryAction
+      LlmAction
+   
+   
+
+   
+   
+   
+
+
+

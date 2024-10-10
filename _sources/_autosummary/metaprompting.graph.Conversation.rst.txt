@@ -1,0 +1,14 @@
+metaprompting.graph.Conversation
+================================
+
+.. currentmodule:: metaprompting.graph
+
+.. autoclass:: Conversation
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

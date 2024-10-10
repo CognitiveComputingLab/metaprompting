@@ -21,35 +21,47 @@
 Default Action and State nodes
 ==============================
 
-A simple example using the :class:`~metaprompting.base.DefaultAction` and :class:`~metaprompting.base.DefaultState`
+A simple example using the :class:`~metaprompting.DefaultAction` and :class:`~metaprompting.DefaultState`
 classes.
 
-.. GENERATED FROM PYTHON SOURCE LINES 9-10
+.. GENERATED FROM PYTHON SOURCE LINES 9-11
 
-Define derived classes to make the call dynamics visible
+Verbose Nodes
+-------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 10-32
+.. GENERATED FROM PYTHON SOURCE LINES 13-14
+
+First, we define derived classes that print nicely and make the dynamic calls visible
+
+.. GENERATED FROM PYTHON SOURCE LINES 14-42
 
 .. code-block:: Python
 
 
-    from metaprompting.base import DefaultAction, DefaultState
+    from metaprompting import State, Action, Graph, connect
 
+    class VerboseAction(Action):
 
-    class VerboseAction(DefaultAction):
+        def __repr__(self):
+            return f"Action({id(self)})"
 
         def input_trigger(self, input):
             print(f"{self} was triggered by {input}")
-            super().input_trigger(input)
+            if super().input_trigger(input):
+                print(f"{self} was executed")
+            else:
+                print(f"{self} was NOT executed")
 
-        def execute(self, *args, **kwargs):
+        def execute(self):
             print(f"executing {self}")
-            super().execute(*args, **kwargs)
+            return super().execute()
 
+    class VerboseState(State):
 
-    class VerboseState(DefaultState):
+        def __repr__(self):
+            return f"State({id(self)})"
 
-        def update(self, text):
+        def update(self, text, *args, **kwargs):
             print(f"updating {self}")
             super().update(text)
 
@@ -60,12 +72,18 @@ Define derived classes to make the call dynamics visible
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 43-45
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-34
+Basic Manual Setup
+------------------
 
-Create state nodes
+.. GENERATED FROM PYTHON SOURCE LINES 47-50
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-40
+We can manually create a graph of connected state and action nodes using basic operations.
+
+For this, we create the state nodes, create the action nodes, and connect them (note that the order matters)
+
+.. GENERATED FROM PYTHON SOURCE LINES 50-64
 
 .. code-block:: Python
 
@@ -75,23 +93,13 @@ Create state nodes
     leaf_1 = VerboseState()
     leaf_2 = VerboseState()
 
+    action_1 = VerboseAction()
+    action_2 = VerboseAction()
 
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 41-42
-
-Create action nodes, which auto-connects states
-
-.. GENERATED FROM PYTHON SOURCE LINES 42-45
-
-.. code-block:: Python
-
-    action1 = VerboseAction(input_states=[root_1, root_2, root_3], output_state=leaf_1)
-    action2 = VerboseAction(input_states=[root_3, root_2, root_1], output_state=leaf_2)
+    connect([root_1, root_2, root_3], action_1)
+    connect([root_3, root_2, root_1], action_2)
+    connect(action_1, leaf_1)
+    connect(action_2, leaf_2)
 
 
 
@@ -100,11 +108,12 @@ Create action nodes, which auto-connects states
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-47
+.. GENERATED FROM PYTHON SOURCE LINES 65-67
 
-Update root state nodes, which triggers a cascade to leaf nodes
+Updating all root state nodes triggers a cascade of executions and updates (execution of an action only happens
+after all inputs were updated)
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-51
+.. GENERATED FROM PYTHON SOURCE LINES 67-71
 
 .. code-block:: Python
 
@@ -120,33 +129,40 @@ Update root state nodes, which triggers a cascade to leaf nodes
 
  .. code-block:: none
 
-    updating <__main__.VerboseState object at 0x7fd34e314760>
-    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e314760>
-    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e314760>
-    updating <__main__.VerboseState object at 0x7fd34e3163e0>
-    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e3163e0>
-    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e3163e0>
-    updating <__main__.VerboseState object at 0x7fd34e3162c0>
-    <__main__.VerboseAction object at 0x7fd34e3146d0> was triggered by <__main__.VerboseState object at 0x7fd34e3162c0>
-    executing <__main__.VerboseAction object at 0x7fd34e3146d0>
-    updating <__main__.VerboseState object at 0x7fd34e314580>
-    <__main__.VerboseAction object at 0x7fd34e3166b0> was triggered by <__main__.VerboseState object at 0x7fd34e3162c0>
-    executing <__main__.VerboseAction object at 0x7fd34e3166b0>
-    updating <__main__.VerboseState object at 0x7fd34e314520>
+    updating State(140350212726336)
+    Action(140350212721632) was triggered by State(140350212726336)
+    Action(140350212721632) was NOT executed
+    Action(140350212727392) was triggered by State(140350212726336)
+    Action(140350212727392) was NOT executed
+    updating State(140350212727008)
+    Action(140350212721632) was triggered by State(140350212727008)
+    Action(140350212721632) was NOT executed
+    Action(140350212727392) was triggered by State(140350212727008)
+    Action(140350212727392) was NOT executed
+    updating State(140350212723264)
+    Action(140350212721632) was triggered by State(140350212723264)
+    executing Action(140350212721632)
+    updating State(140350212728256)
+    Action(140350212721632) was executed
+    Action(140350212727392) was triggered by State(140350212723264)
+    executing Action(140350212727392)
+    updating State(140350212729408)
+    Action(140350212727392) was executed
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-53
+.. GENERATED FROM PYTHON SOURCE LINES 72-73
 
-Print output of leaf nodes
+Note how the different input order leads to different values in the two leaf nodes
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-55
+.. GENERATED FROM PYTHON SOURCE LINES 73-76
 
 .. code-block:: Python
 
     print(leaf_1.value)
     print(leaf_2.value)
+
 
 
 
@@ -161,10 +177,76 @@ Print output of leaf nodes
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 77-82
+
+Graph Objects
+-------------
+
+The :class:`~metaprompting.Graph` class holds all nodes and provides some convenience functions for working
+with graphs.
+
+.. GENERATED FROM PYTHON SOURCE LINES 82-101
+
+.. code-block:: Python
+
+
+    graph = Graph()
+
+    (root_1_, root_2_, root_3_,
+     leaf_1_, leaf_2_) = graph.add_states([VerboseState(), VerboseState(), VerboseState(),
+                                           VerboseState(), VerboseState()])
+
+    graph.connect_action([root_1_, root_2_, root_3_], VerboseAction(), leaf_1_, add=True)
+    graph.connect_action([root_3_, root_2_, root_1_], VerboseAction(), leaf_2_, add=True)
+
+    print(list(graph.states))
+    print(list(graph.actions))
+
+    root_1.update("smoke")
+    root_2.update(" and ")
+    root_3.update("mirrors")
+
+    print(leaf_1.value)
+    print(leaf_2.value)
+
+
+
+
+.. rst-class:: sphx-glr-script-out
+
+ .. code-block:: none
+
+    [State(140350212727440), State(140350212728496), State(140350212732240), State(140350212720576), State(140350212720624)]
+    [Action(140350212726624), Action(140350212725856)]
+    updating State(140350212726336)
+    Action(140350212721632) was triggered by State(140350212726336)
+    Action(140350212721632) was NOT executed
+    Action(140350212727392) was triggered by State(140350212726336)
+    Action(140350212727392) was NOT executed
+    updating State(140350212727008)
+    Action(140350212721632) was triggered by State(140350212727008)
+    Action(140350212721632) was NOT executed
+    Action(140350212727392) was triggered by State(140350212727008)
+    Action(140350212727392) was NOT executed
+    updating State(140350212723264)
+    Action(140350212721632) was triggered by State(140350212723264)
+    executing Action(140350212721632)
+    updating State(140350212728256)
+    Action(140350212721632) was executed
+    Action(140350212727392) was triggered by State(140350212723264)
+    executing Action(140350212727392)
+    updating State(140350212729408)
+    Action(140350212727392) was executed
+    smoke and mirrors
+    mirrors and smoke
+
+
+
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.003 seconds)
+   **Total running time of the script:** (0 minutes 0.005 seconds)
 
 
 .. _sphx_glr_download_auto_examples_plot_example.py:

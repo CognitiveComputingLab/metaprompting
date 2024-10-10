@@ -1,0 +1,6 @@
+metaprompting.graph.connect
+===========================
+
+.. currentmodule:: metaprompting.graph
+
+.. autofunction:: connect

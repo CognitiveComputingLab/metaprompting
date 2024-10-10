@@ -1,0 +1,32 @@
+metaprompting.llm
+=================
+
+.. automodule:: metaprompting.llm
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+   
+      CopyPasteLLM
+      LLM
+   
+   
+
+   
+   
+   
+
+
+

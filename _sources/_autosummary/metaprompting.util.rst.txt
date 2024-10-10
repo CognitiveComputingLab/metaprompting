@@ -1,0 +1,31 @@
+metaprompting.util
+==================
+
+.. automodule:: metaprompting.util
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      make_iterable
+      read_multiline_input
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+

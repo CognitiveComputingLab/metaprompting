@@ -28,5 +28,9 @@
    :template: custom-module-template.rst
    :recursive:
 
-   base
+   action
+   graph
+   llm
+   state
+   util
 

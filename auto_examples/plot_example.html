@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -6,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Default Action and State nodes &mdash; metaprompting  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
@@ -14,19 +16,15 @@
       <link rel="stylesheet" type="text/css" href="../_static/autoclasstoc.css?v=08871587" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Summary" href="../api_summary.html" />
+    <link rel="next" title="Copy Paste LLM" href="plot_copy_paste_llm.html" />
     <link rel="prev" title="Meta-Prompting Gallery" href="index.html" /> 
 </head>
 
@@ -52,7 +50,13 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Meta-Prompting Gallery</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Default Action and State nodes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Default Action and State nodes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verbose-nodes">Verbose Nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-manual-setup">Basic Manual Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#graph-objects">Graph Objects</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plot_copy_paste_llm.html">Copy Paste LLM</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api_summary.html">API Summary</a></li>
@@ -89,65 +93,88 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="default-action-and-state-nodes">
 <span id="sphx-glr-auto-examples-plot-example-py"></span><h1>Default Action and State nodes<a class="headerlink" href="#default-action-and-state-nodes" title="Link to this heading"></a></h1>
-<p>A simple example using the <a class="reference internal" href="../_autosummary/metaprompting.base.DefaultAction.html#metaprompting.base.DefaultAction" title="metaprompting.base.DefaultAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultAction</span></code></a> and <a class="reference internal" href="../_autosummary/metaprompting.base.DefaultState.html#metaprompting.base.DefaultState" title="metaprompting.base.DefaultState"><code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultState</span></code></a>
+<p>A simple example using the <code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultAction</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">DefaultState</span></code>
 classes.</p>
-<p>Define derived classes to make the call dynamics visible</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">metaprompting.base</span> <span class="kn">import</span> <span class="n">DefaultAction</span><span class="p">,</span> <span class="n">DefaultState</span>
+<section id="verbose-nodes">
+<h2>Verbose Nodes<a class="headerlink" href="#verbose-nodes" title="Link to this heading"></a></h2>
+<p>First, we define derived classes that print nicely and make the dynamic calls visible</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">metaprompting</span> <span class="kn">import</span> <span class="n">State</span><span class="p">,</span> <span class="n">Action</span><span class="p">,</span> <span class="n">Graph</span><span class="p">,</span> <span class="n">connect</span>
 
+<span class="k">class</span> <span class="nc">VerboseAction</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
 
-<span class="k">class</span> <span class="nc">VerboseAction</span><span class="p">(</span><span class="n">DefaultAction</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Action(</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="k">def</span> <span class="nf">input_trigger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> was triggered by </span><span class="si">{</span><span class="nb">input</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">input_trigger</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">input_trigger</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> was executed&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2"> was NOT executed&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;executing </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 
+<span class="k">class</span> <span class="nc">VerboseState</span><span class="p">(</span><span class="n">State</span><span class="p">):</span>
 
-<span class="k">class</span> <span class="nc">VerboseState</span><span class="p">(</span><span class="n">DefaultState</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;State(</span><span class="si">{</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
 
-    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;updating </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Create state nodes</p>
+</section>
+<section id="basic-manual-setup">
+<h2>Basic Manual Setup<a class="headerlink" href="#basic-manual-setup" title="Link to this heading"></a></h2>
+<p>We can manually create a graph of connected state and action nodes using basic operations.</p>
+<p>For this, we create the state nodes, create the action nodes, and connect them (note that the order matters)</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root_1</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
 <span class="n">root_2</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
 <span class="n">root_3</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
 <span class="n">leaf_1</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
 <span class="n">leaf_2</span> <span class="o">=</span> <span class="n">VerboseState</span><span class="p">()</span>
+
+<span class="n">action_1</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">()</span>
+<span class="n">action_2</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">()</span>
+
+<span class="n">connect</span><span class="p">([</span><span class="n">root_1</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_3</span><span class="p">],</span> <span class="n">action_1</span><span class="p">)</span>
+<span class="n">connect</span><span class="p">([</span><span class="n">root_3</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_1</span><span class="p">],</span> <span class="n">action_2</span><span class="p">)</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">action_1</span><span class="p">,</span> <span class="n">leaf_1</span><span class="p">)</span>
+<span class="n">connect</span><span class="p">(</span><span class="n">action_2</span><span class="p">,</span> <span class="n">leaf_2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Create action nodes, which auto-connects states</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">action1</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">(</span><span class="n">input_states</span><span class="o">=</span><span class="p">[</span><span class="n">root_1</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_3</span><span class="p">],</span> <span class="n">output_state</span><span class="o">=</span><span class="n">leaf_1</span><span class="p">)</span>
-<span class="n">action2</span> <span class="o">=</span> <span class="n">VerboseAction</span><span class="p">(</span><span class="n">input_states</span><span class="o">=</span><span class="p">[</span><span class="n">root_3</span><span class="p">,</span> <span class="n">root_2</span><span class="p">,</span> <span class="n">root_1</span><span class="p">],</span> <span class="n">output_state</span><span class="o">=</span><span class="n">leaf_2</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Update root state nodes, which triggers a cascade to leaf nodes</p>
+<p>Updating all root state nodes triggers a cascade of executions and updates (execution of an action only happens
+after all inputs were updated)</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root_1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;smoke&quot;</span><span class="p">)</span>
 <span class="n">root_2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">)</span>
 <span class="n">root_3</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;mirrors&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>updating &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e314760&gt;
-updating &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3163e0&gt;
-updating &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
-executing &lt;__main__.VerboseAction object at 0x7fd34e3146d0&gt;
-updating &lt;__main__.VerboseState object at 0x7fd34e314580&gt;
-&lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt; was triggered by &lt;__main__.VerboseState object at 0x7fd34e3162c0&gt;
-executing &lt;__main__.VerboseAction object at 0x7fd34e3166b0&gt;
-updating &lt;__main__.VerboseState object at 0x7fd34e314520&gt;
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>updating State(140350212726336)
+Action(140350212721632) was triggered by State(140350212726336)
+Action(140350212721632) was NOT executed
+Action(140350212727392) was triggered by State(140350212726336)
+Action(140350212727392) was NOT executed
+updating State(140350212727008)
+Action(140350212721632) was triggered by State(140350212727008)
+Action(140350212721632) was NOT executed
+Action(140350212727392) was triggered by State(140350212727008)
+Action(140350212727392) was NOT executed
+updating State(140350212723264)
+Action(140350212721632) was triggered by State(140350212723264)
+executing Action(140350212721632)
+updating State(140350212728256)
+Action(140350212721632) was executed
+Action(140350212727392) was triggered by State(140350212723264)
+executing Action(140350212727392)
+updating State(140350212729408)
+Action(140350212727392) was executed
 </pre></div>
 </div>
-<p>Print output of leaf nodes</p>
+<p>Note how the different input order leads to different values in the two leaf nodes</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">leaf_1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">leaf_2</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
@@ -156,7 +183,57 @@ updating &lt;__main__.VerboseState object at 0x7fd34e314520&gt;
 mirrors and smoke
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.003 seconds)</p>
+</section>
+<section id="graph-objects">
+<h2>Graph Objects<a class="headerlink" href="#graph-objects" title="Link to this heading"></a></h2>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">Graph</span></code> class holds all nodes and provides some convenience functions for working
+with graphs.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span> <span class="o">=</span> <span class="n">Graph</span><span class="p">()</span>
+
+<span class="p">(</span><span class="n">root_1_</span><span class="p">,</span> <span class="n">root_2_</span><span class="p">,</span> <span class="n">root_3_</span><span class="p">,</span>
+ <span class="n">leaf_1_</span><span class="p">,</span> <span class="n">leaf_2_</span><span class="p">)</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">add_states</span><span class="p">([</span><span class="n">VerboseState</span><span class="p">(),</span> <span class="n">VerboseState</span><span class="p">(),</span> <span class="n">VerboseState</span><span class="p">(),</span>
+                                       <span class="n">VerboseState</span><span class="p">(),</span> <span class="n">VerboseState</span><span class="p">()])</span>
+
+<span class="n">graph</span><span class="o">.</span><span class="n">connect_action</span><span class="p">([</span><span class="n">root_1_</span><span class="p">,</span> <span class="n">root_2_</span><span class="p">,</span> <span class="n">root_3_</span><span class="p">],</span> <span class="n">VerboseAction</span><span class="p">(),</span> <span class="n">leaf_1_</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">connect_action</span><span class="p">([</span><span class="n">root_3_</span><span class="p">,</span> <span class="n">root_2_</span><span class="p">,</span> <span class="n">root_1_</span><span class="p">],</span> <span class="n">VerboseAction</span><span class="p">(),</span> <span class="n">leaf_2_</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">states</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">graph</span><span class="o">.</span><span class="n">actions</span><span class="p">))</span>
+
+<span class="n">root_1</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;smoke&quot;</span><span class="p">)</span>
+<span class="n">root_2</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot; and &quot;</span><span class="p">)</span>
+<span class="n">root_3</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;mirrors&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">leaf_1</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">leaf_2</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[State(140350212727440), State(140350212728496), State(140350212732240), State(140350212720576), State(140350212720624)]
+[Action(140350212726624), Action(140350212725856)]
+updating State(140350212726336)
+Action(140350212721632) was triggered by State(140350212726336)
+Action(140350212721632) was NOT executed
+Action(140350212727392) was triggered by State(140350212726336)
+Action(140350212727392) was NOT executed
+updating State(140350212727008)
+Action(140350212721632) was triggered by State(140350212727008)
+Action(140350212721632) was NOT executed
+Action(140350212727392) was triggered by State(140350212727008)
+Action(140350212727392) was NOT executed
+updating State(140350212723264)
+Action(140350212721632) was triggered by State(140350212723264)
+executing Action(140350212721632)
+updating State(140350212728256)
+Action(140350212721632) was executed
+Action(140350212727392) was triggered by State(140350212723264)
+executing Action(140350212727392)
+updating State(140350212729408)
+Action(140350212727392) was executed
+smoke and mirrors
+mirrors and smoke
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.005 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-plot-example-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/28bf5b885c707f7863eaed624722ca82/plot_example.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_example.ipynb</span></code></a></p>
@@ -170,13 +247,14 @@ mirrors and smoke
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Meta-Prompting Gallery" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../api_summary.html" class="btn btn-neutral float-right" title="API Summary" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="plot_copy_paste_llm.html" class="btn btn-neutral float-right" title="Copy Paste LLM" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

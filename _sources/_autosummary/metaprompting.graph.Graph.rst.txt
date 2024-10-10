@@ -1,0 +1,14 @@
+metaprompting.graph.Graph
+=========================
+
+.. currentmodule:: metaprompting.graph
+
+.. autoclass:: Graph
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

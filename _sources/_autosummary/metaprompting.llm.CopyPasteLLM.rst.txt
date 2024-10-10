@@ -1,0 +1,14 @@
+metaprompting.llm.CopyPasteLLM
+==============================
+
+.. currentmodule:: metaprompting.llm
+
+.. autoclass:: CopyPasteLLM
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::

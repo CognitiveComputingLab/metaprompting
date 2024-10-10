@@ -1,0 +1,39 @@
+metaprompting.graph
+===================
+
+.. automodule:: metaprompting.graph
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+      :toctree:
+   
+      connect
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+      :toctree:
+      :template: custom-class-template.rst
+   
+      Conversation
+      Graph
+   
+   
+
+   
+   
+   
+
+
+

@@ -1,0 +1,14 @@
+metaprompting.action.LlmAction
+==============================
+
+.. currentmodule:: metaprompting.action
+
+.. autoclass:: LlmAction
+   :members:
+   :undoc-members:
+   :special-members:
+   :private-members:
+   :inherited-members:
+   :show-inheritance:
+
+   .. autoclasstoc::
